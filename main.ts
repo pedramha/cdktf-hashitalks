@@ -15,6 +15,7 @@ class MyStack extends TerraformStack {
       type: AssetType.ARCHIVE, 
     });
 
+    // you can add random provider to ensure unique name for the bucket
     const assetBucket = new s3.S3Bucket(this, "bucket2", {
       bucket: 'lambda-asset-bucket-test12312342211',
     });
@@ -50,7 +51,7 @@ class MyStack extends TerraformStack {
       role: role.name
     });
 
-
+    // getting the state from terraform cloud
     const remoteState = new DataTerraformRemoteState(this, "remote-state", {
       organization: "pedram-company",
       hostname: "app.terraform.io",
@@ -152,7 +153,7 @@ const app = new App();
 const stack = new MyStack(app, "cdktf-test-remote2");
 new CloudBackend(stack, {
   hostname: "app.terraform.io",
-  organization: "pedram-company",
-  workspaces: new NamedCloudWorkspace("cdktf-test-remote2")
+  organization: "<your organization>",
+  workspaces: new NamedCloudWorkspace("<your workspace>")
 });
 app.synth();
