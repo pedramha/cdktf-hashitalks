@@ -153,7 +153,7 @@ const app = new App();
 const stack = new MyStack(app, "cdktf-test-remote2");
 new CloudBackend(stack, {
   hostname: "app.terraform.io",
-  organization: "<your organization>",
-  workspaces: new NamedCloudWorkspace("<your workspace>")
+  organization: "pedram-company",
+  workspaces: new NamedCloudWorkspace("cdktf-test-remote2")
 });
 app.synth();
