@@ -7,7 +7,7 @@ class MyStack extends TerraformStack {
   constructor(scope: Construct, name: string) {
     super(scope, name);
     new AwsProvider(this, "AWS", {
-      region: "us-west-1",
+      region: "eu-central-1",
     });
 
     const asset = new TerraformAsset(this, "lambda-asset", {
