@@ -29,6 +29,7 @@ jobs:
       # - name: Run Tests
       #   run: npm test
       - name: Deploy
-        run: cdktf deploy --auto-approve '*' # Deploys all stacks
+        run: cdktf deploy # Deploys all stacks
         env:
           TERRAFORM_CLOUD_TOKEN: ${{ secrets.TF_API_TOKEN }}
+        continue-on-error: true 
