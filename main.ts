@@ -56,7 +56,7 @@ class MyStack extends TerraformStack {
       organization: "pedram-company",
       hostname: "app.terraform.io",
       workspaces: {
-        name: "mongodbtest",
+        name: "mongodb-atlas",
       }
     });
 
