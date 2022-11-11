@@ -1,6 +1,7 @@
 import { Construct } from "constructs";
 import { App, TerraformStack, CloudBackend, NamedCloudWorkspace, TerraformOutput, DataTerraformRemoteState, TerraformAsset, AssetType } from "cdktf";
 import { AwsProvider,s3 , lambdafunction, iam, apigateway} from "@cdktf/provider-aws";
+import { RandomProvider } from "@cdktf/provider-random/lib/provider";
 import path = require("path");
 
 class MyStack extends TerraformStack {
@@ -10,6 +11,8 @@ class MyStack extends TerraformStack {
       region: "eu-central-1",
     });
 
+    let randomName= new RandomProvider(this, "random",{});
+
     const asset = new TerraformAsset(this, "lambda-asset", {
       path: path.resolve(__dirname, "./src"),
       type: AssetType.ARCHIVE, 
@@ -17,7 +20,7 @@ class MyStack extends TerraformStack {
 
     // you can add random provider to ensure unique name for the bucket
     const assetBucket = new s3.S3Bucket(this, "bucket2", {
-      bucket: 'lambda-asset-bucket-test12312342211',
+      bucket: `lambda-asset-bucket-${randomName.toString()}`,
     });
 
     const lambdaArchive = new s3.S3BucketObject(this, "lambda-zip", {
@@ -42,7 +45,7 @@ class MyStack extends TerraformStack {
     };
 
     const role = new iam.IamRole(this, "lambda-execution-role", {
-      name: 'lambda-execution-role-test1231234',
+      name: `lambda-execution-role-${randomName.toString()}`,
       assumeRolePolicy: JSON.stringify(lambdaRole)
     });
 
