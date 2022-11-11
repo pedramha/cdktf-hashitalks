@@ -11,10 +11,9 @@ class MyStack extends TerraformStack {
       region: "eu-central-1",
     });
 
-    let randomName= new RandomProvider(this, "random",{
-      alias: "random_pet"
+    const randomName=new RandomProvider(this, "random");
 
-    });
+
 
 
     const asset = new TerraformAsset(this, "lambda-asset", {
@@ -24,7 +23,7 @@ class MyStack extends TerraformStack {
 
     // you can add random provider to ensure unique name for the bucket
     const assetBucket = new s3.S3Bucket(this, "bucket2", {
-      bucket: `lambda-asset-bucket-${randomName.toString()}`,
+      bucket: `lambda-asset-bucket-${randomName.friendlyUniqueId.toString()}`,
     });
 
     const lambdaArchive = new s3.S3BucketObject(this, "lambda-zip", {
@@ -49,7 +48,7 @@ class MyStack extends TerraformStack {
     };
 
     const role = new iam.IamRole(this, "lambda-execution-role", {
-      name: `lambda-execution-role-${randomName.toString()}`,
+      name: `lambda-execution-role-${randomName.friendlyUniqueId.toString()}`,
       assumeRolePolicy: JSON.stringify(lambdaRole)
     });
 
