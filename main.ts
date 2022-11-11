@@ -11,7 +11,11 @@ class MyStack extends TerraformStack {
       region: "eu-central-1",
     });
 
-    let randomName= new RandomProvider(this, "random",{});
+    let randomName= new RandomProvider(this, "random",{
+      alias: "random_pet"
+
+    });
+
 
     const asset = new TerraformAsset(this, "lambda-asset", {
       path: path.resolve(__dirname, "./src"),
